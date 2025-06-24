@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarvis - Tu Asistente de IA</title>
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiM1M2VhOTQiIGQ9Im04IDE4bC02LTZsNi02bDEuNDI1IDEuNDI1bC00LjYgNC42TDkuNCAxNi42em04IDBsLTEuNDI1LTEuNDI1bDQuNi00LjZMMTQuNiA3LjRMMTYgNmw2IDZ6Ii8+PC9zdmc+" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6e48aa;
+            --secondary: #9d50bb;
+            --accent: #4776E6;
+            --dark: #1a1a2e;
+            --darker: #16213e;
+            --light: #f8f9fa;
+            --gray: #e9ecef;
+            --success: #4BB543;
+            --warning: #FFCC00;
+            --error: #FF3333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Animaciones */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            padding: 1.5rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(110, 72, 170, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(110, 72, 170, 0.6);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        /* Main Container */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10;
+        }
+        
+        .new-chat-btn {
+            width: 100%;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+        
+        .new-chat-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .history-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 1rem;
+        }
+        
+        .history-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .history-item {
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: all 0.2s ease;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .history-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .history-item.active {
+            background: rgba(110, 72, 170, 0.3);
+            color: white;
+        }
+        
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 1.2rem 1.5rem;
+            border-radius: 18px;
+            line-height: 1.6;
+            position: relative;
+            animation: fadeIn 0.4s ease-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .user-message {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .ai-message {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom-left-radius: 4px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+            display: block;
+            text-align: right;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1.5rem;
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            backdrop-filter: blur(5px);
+            margin-bottom: 1rem;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--light);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        
+        /* Input Area */
+        .input-container {
+            padding: 1.5rem;
+            background: linear-gradient(180deg, rgba(26, 26, 46, 0), var(--darker) 70%);
+            position: relative;
+            z-index: 5;
+        }
+        
+        .input-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .message-input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            padding-right: 3.5rem;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .message-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 2px rgba(110, 72, 170, 0.3);
+        }
+        
+        .send-btn {
+            position: absolute;
+            right: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(110, 72, 170, 0.6);
+        }
+        
+        .send-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Decoraciones y efectos */
+        .background-effects {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            opacity: 0.5;
+            filter: blur(20px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+        }
+        
+        /* Toggle menu */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Welcome screen */
+        .welcome-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            z-index: 5;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .welcome-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .welcome-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 3rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .feature-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Markdown styling */
+        .ai-message pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 0.5rem 0;
+        }
+        
+        .ai-message code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .ai-message p {
+            margin-bottom: 0.8rem;
+        }
+        
+        .ai-message ul, .ai-message ol {
+            margin-left: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .ai-message li {
+            margin-bottom: 0.3rem;
+        }
+        
+        .ai-message strong {
+            color: white;
+            font-weight: 600;
+        }
+        
+        .ai-message a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .ai-message a:hover {
+            text-decoration: underline;
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-robot logo-icon"></i>
+            <span class="logo-text">Jarvis</span>
+        </div>
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-buttons">
+            <button class="btn btn-primary" id="newChatBtn">
+                <i class="fas fa-plus"></i> Nuevo chat
+            </button>
+        </div>
+    </header>
+    
+    <div class="main-container">
+        <div class="sidebar" id="sidebar">
+            <button class="btn new-chat-btn" id="sidebarNewChatBtn">
+                <i class="fas fa-plus"></i> Nuevo chat
+            </button>
+        </div>
+        
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+            </div>
+            
+            <div class="input-container">
+                <div class="input-box">
+                    <input type="text" class="message-input" id="messageInput" placeholder="Escribe tu mensaje..." autocomplete="off">
+                    <button class="send-btn" id="sendBtn" disabled>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="welcome-screen" id="welcomeScreen">
+            <i class="fas fa-robot welcome-icon"></i>
+            <h1 class="welcome-title">Bienvenido a Jarvis</h1><p class="welcome-subtitle">Tu asistente de IA personal. Pregúntame cualquier cosa y te ayudaré de la mejor manera posible. <br>Hecho por <a href="https://ratalittleyt.github.io/RataLife/" style="color: white;">A.Tellez</a></p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="feature-title">Respuestas inteligentes</h3>
+                    <p class="feature-desc">Obtén respuestas precisas y detalladas a tus preguntas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="feature-title">Asistencia técnica</h3>
+                    <p class="feature-desc">Ayuda con programación, debugging y explicación de conceptos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="feature-title">Aprendizaje</h3>
+                    <p class="feature-desc">Explicaciones claras de temas complejos en múltiples áreas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="feature-title">Creatividad</h3>
+                    <p class="feature-desc">Generación de ideas, historias y contenido original.</p>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary" id="startChatBtn">
+                <i class="fas fa-comment"></i> Comenzar nuevo chat
+            </button>
+        </div>
+        
+        <div class="background-effects" id="backgroundEffects">
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

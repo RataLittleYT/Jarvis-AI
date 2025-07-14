@@ -1,1 +1,206 @@
-const _0x2ff51f=_0x118f;function _0x59a0(){const _0x1a3269=['typing-dot','2188773NcDdAk','RataLife\x20Chat','disabled','user','auto','message\x20','textContent','english','mistralai/mistral-7b-instruct','spanish','opacity','51664conskQ','https://twentyfox.lat','focus','⚠️\x20Error\x20connecting\x20to\x20the\x20server.\x20Please\x20try\x20again.','innerHTML','scrollTop','cursor','https://openrouter.ai/api/v1/chat/completions','pointer','typing-indicator','user-message','message-time','length','ai-message','⚠️\x20Error\x20al\x20conectar\x20con\x20el\x20servidor.\x20Por\x20favor,\x20intenta\x20nuevamente.','appendChild','español','5JOWVjJ','typingIndicator','btn\x20btn-outline\x20copy-btn','59030gNQMSt','clientHeight','div','onclick','trim','newChatBtn','error','<strong>$1</strong>','33mkKIZp','DOMContentLoaded','Lo\x20siento,\x20algo\x20salió\x20mal.','content','getElementById','POST','keydown','toLocaleTimeString','input','5418077EaIPEA','2595484GSXGFS','addEventListener','test','application/json','sendBtn','Error:','height','startChatBtn','sidebarNewChatBtn','scrollHeight','<br>','clipboard','click','welcomeScreen','shiftKey','push','replace','<i\x20class=\x22fas\x20fa-copy\x22></i>\x20Copiar','585UMxrSE','RataLife','stringify','style','createElement','value','messageInput','display','2-digit','956670ALsHRA','none','0.7','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','message','\x20según\x20el\x20idioma\x20del\x20usuario.','7403046MUwFAv','className','remove','key','Enter','writeText'];_0x59a0=function(){return _0x1a3269;};return _0x59a0();}(function(_0xcbb66e,_0x20571a){const _0x2aaff3=_0x118f,_0x431a2e=_0xcbb66e();while(!![]){try{const _0x22ca9c=-parseInt(_0x2aaff3(0xf5))/0x1*(-parseInt(_0x2aaff3(0xed))/0x2)+-parseInt(_0x2aaff3(0x127))/0x3+parseInt(_0x2aaff3(0xff))/0x4+-parseInt(_0x2aaff3(0xea))/0x5*(parseInt(_0x2aaff3(0x120))/0x6)+parseInt(_0x2aaff3(0xfe))/0x7+parseInt(_0x2aaff3(0x132))/0x8*(parseInt(_0x2aaff3(0x111))/0x9)+-parseInt(_0x2aaff3(0x11a))/0xa;if(_0x22ca9c===_0x20571a)break;else _0x431a2e['push'](_0x431a2e['shift']());}catch(_0x2fe398){_0x431a2e['push'](_0x431a2e['shift']());}}}(_0x59a0,0xb8f2c));const messageInput=document['getElementById'](_0x2ff51f(0x117)),sendBtn=document['getElementById'](_0x2ff51f(0x103)),chatMessages=document[_0x2ff51f(0xf9)]('chatMessages'),startChatBtn=document[_0x2ff51f(0xf9)](_0x2ff51f(0x106)),newChatBtn=document[_0x2ff51f(0xf9)](_0x2ff51f(0xf2)),sidebarNewChatBtn=document['getElementById'](_0x2ff51f(0x107)),welcomeScreen=document[_0x2ff51f(0xf9)](_0x2ff51f(0x10c)),API_KEY=_0x2ff51f(0x11d);let isTyping=![],conversationHistory=[];function init(){const _0xd51541=_0x2ff51f;messageInput['addEventListener'](_0xd51541(0xfd),handleInputChange),messageInput[_0xd51541(0x100)](_0xd51541(0xfb),handleKeyDown),sendBtn[_0xd51541(0x100)](_0xd51541(0x10b),sendMessage),startChatBtn['addEventListener']('click',clearChat),newChatBtn[_0xd51541(0x100)](_0xd51541(0x10b),clearChat),sidebarNewChatBtn[_0xd51541(0x100)](_0xd51541(0x10b),clearChat),toggleSendButton(),messageInput[_0xd51541(0xdb)]();}function handleInputChange(){const _0x35334f=_0x2ff51f;toggleSendButton(),messageInput[_0x35334f(0x108)]>messageInput[_0x35334f(0xee)]&&(messageInput[_0x35334f(0x114)][_0x35334f(0x105)]=_0x35334f(0x12b),messageInput[_0x35334f(0x114)][_0x35334f(0x105)]=messageInput[_0x35334f(0x108)]+'px');}function handleKeyDown(_0x212a8b){const _0x593234=_0x2ff51f;_0x212a8b[_0x593234(0x123)]===_0x593234(0x124)&&!_0x212a8b[_0x593234(0x10d)]&&(_0x212a8b['preventDefault'](),!sendBtn[_0x593234(0x129)]&&sendMessage());}function clearChat(){const _0x4282f4=_0x2ff51f;chatMessages[_0x4282f4(0xdd)]='',conversationHistory=[],welcomeScreen[_0x4282f4(0x114)][_0x4282f4(0x118)]=_0x4282f4(0x11b),messageInput['value']='',toggleSendButton(),messageInput[_0x4282f4(0xdb)](),messageInput[_0x4282f4(0x114)]['height']=_0x4282f4(0x12b);}async function sendMessage(){const _0x555f35=_0x2ff51f,_0x3963f8=messageInput[_0x555f35(0x116)]['trim']();if(!_0x3963f8||isTyping)return;const _0x363e84=/[a-zA-Z]/['test'](_0x3963f8)&&!/[áéíóúñÁÉÍÓÚÑ]/[_0x555f35(0x101)](_0x3963f8),_0x32ac02=_0x363e84?_0x555f35(0x12e):_0x555f35(0x130);appendMessage('Tú',_0x3963f8,_0x555f35(0xe3),![]),conversationHistory[_0x555f35(0x10e)]({'role':_0x555f35(0x12a),'content':_0x3963f8}),messageInput[_0x555f35(0x116)]='',messageInput['style'][_0x555f35(0x105)]=_0x555f35(0x12b),toggleSendButton(),showTyping(),await getJarvisResponse(_0x32ac02),hideTyping();}function appendMessage(_0x227d07,_0x5522b6,_0x31344f,_0x19cb84=!![]){const _0x365456=_0x2ff51f,_0x24180e=document[_0x365456(0x115)]('div');_0x24180e[_0x365456(0x121)]=_0x365456(0x12c)+_0x31344f;const _0x46343b=document['createElement'](_0x365456(0xef));_0x46343b[_0x365456(0xdd)]=formatContent(_0x5522b6);if(_0x19cb84){const _0x430920=document[_0x365456(0x115)]('button');_0x430920[_0x365456(0xdd)]=_0x365456(0x110),_0x430920[_0x365456(0x121)]=_0x365456(0xec),_0x430920[_0x365456(0xf0)]=()=>{const _0x4f8f04=_0x365456;navigator[_0x4f8f04(0x10a)][_0x4f8f04(0x125)](_0x5522b6),_0x430920[_0x4f8f04(0xdd)]='<i\x20class=\x22fas\x20fa-check\x22></i>\x20Copiado!',setTimeout(()=>{const _0x19c1be=_0x4f8f04;_0x430920[_0x19c1be(0xdd)]=_0x19c1be(0x110);},0x7d0);},_0x46343b['appendChild'](_0x430920);}const _0x428fcf=document[_0x365456(0x115)](_0x365456(0xef));_0x428fcf[_0x365456(0x121)]=_0x365456(0xe4),_0x428fcf[_0x365456(0x12d)]=new Date()[_0x365456(0xfc)]([],{'hour':_0x365456(0x119),'minute':_0x365456(0x119)}),_0x24180e['appendChild'](_0x46343b),_0x24180e[_0x365456(0xe8)](_0x428fcf),chatMessages[_0x365456(0xe8)](_0x24180e),chatMessages[_0x365456(0xde)]=chatMessages['scrollHeight'];}function formatContent(_0x5b132b){const _0x555a87=_0x2ff51f,_0xd6b76b=_0x5b132b[_0x555a87(0x10f)](/```(\w*)\n([\s\S]*?)```/g,'<pre><code\x20class=\x22$1\x22>$2</code></pre>');return _0xd6b76b[_0x555a87(0x10f)](/`([^`]+)`/g,'<code>$1</code>')[_0x555a87(0x10f)](/\*\*([^*]+)\*\*/g,_0x555a87(0xf4))[_0x555a87(0x10f)](/\n/g,_0x555a87(0x109));}function showTyping(){const _0x3df48b=_0x2ff51f;isTyping=!![];const _0x4b5cd6=document[_0x3df48b(0x115)](_0x3df48b(0xef));_0x4b5cd6[_0x3df48b(0x121)]=_0x3df48b(0xe2),_0x4b5cd6['id']='typingIndicator';for(let _0xff429d=0x0;_0xff429d<0x3;_0xff429d++){const _0x3ec661=document[_0x3df48b(0x115)]('div');_0x3ec661[_0x3df48b(0x121)]=_0x3df48b(0x126),_0x4b5cd6['appendChild'](_0x3ec661);}chatMessages[_0x3df48b(0xe8)](_0x4b5cd6),chatMessages[_0x3df48b(0xde)]=chatMessages[_0x3df48b(0x108)];}function hideTyping(){const _0x1acd80=_0x2ff51f;isTyping=![];const _0x22fdcf=document[_0x1acd80(0xf9)](_0x1acd80(0xeb));if(_0x22fdcf)_0x22fdcf[_0x1acd80(0x122)]();}function toggleSendButton(){const _0x1b1ce8=_0x2ff51f;sendBtn[_0x1b1ce8(0x129)]=messageInput['value'][_0x1b1ce8(0xf1)]()==='',sendBtn[_0x1b1ce8(0x129)]?(sendBtn['style'][_0x1b1ce8(0x131)]=_0x1b1ce8(0x11c),sendBtn[_0x1b1ce8(0x114)][_0x1b1ce8(0xdf)]='not-allowed'):(sendBtn[_0x1b1ce8(0x114)][_0x1b1ce8(0x131)]='1',sendBtn[_0x1b1ce8(0x114)][_0x1b1ce8(0xdf)]=_0x1b1ce8(0xe1));}function _0x118f(_0x5e8df0,_0x2a97bc){const _0x59a024=_0x59a0();return _0x118f=function(_0x118fc3,_0x51e16c){_0x118fc3=_0x118fc3-0xdb;let _0x3d4f23=_0x59a024[_0x118fc3];return _0x3d4f23;},_0x118f(_0x5e8df0,_0x2a97bc);}async function getJarvisResponse(_0x266f4a){const _0x31ed82=_0x2ff51f;try{const _0x2db3a1=await fetch(_0x31ed82(0xe0),{'method':_0x31ed82(0xfa),'headers':{'Authorization':'Bearer\x20'+API_KEY,'Content-Type':_0x31ed82(0x102),'HTTP-Referer':_0x31ed82(0x133),'X-Title':_0x31ed82(0x128)},'body':JSON[_0x31ed82(0x113)]({'model':_0x31ed82(0x12f),'messages':[{'role':'system','content':'Eres\x20RataLife.\x20Un\x20asistente\x20amigable,\x20sabio\x20y\x20útil\x20además\x20de\x20poetico\x20en\x20ocasiones.\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Responde\x20en\x20'+(_0x266f4a===_0x31ed82(0x12e)?_0x31ed82(0x12e):_0x31ed82(0xe9))+_0x31ed82(0x11f)},...conversationHistory]})}),_0xaf0f44=await _0x2db3a1['json'](),_0x413275=_0xaf0f44['choices']?.[0x0]?.[_0x31ed82(0x11e)]?.[_0x31ed82(0xf8)]||(_0x266f4a===_0x31ed82(0x12e)?'Sorry,\x20something\x20went\x20wrong.':_0x31ed82(0xf7));appendMessage(_0x31ed82(0x112),_0x413275,_0x31ed82(0xe6),!![]),conversationHistory[_0x31ed82(0x10e)]({'role':'assistant','content':_0x413275});}catch(_0x17c699){console[_0x31ed82(0xf3)](_0x31ed82(0x104),_0x17c699);const _0x1baeb0=conversationHistory[conversationHistory[_0x31ed82(0xe5)]-0x1]?.[_0x31ed82(0xf8)]?.['includes'](_0x31ed82(0x12e))?_0x31ed82(0xdc):_0x31ed82(0xe7);appendMessage('RataLife',_0x1baeb0,_0x31ed82(0xe6),!![]);}}document['addEventListener'](_0x2ff51f(0xf6),init);
+
+const messageInput = document.getElementById("messageInput");
+const sendBtn = document.getElementById("sendBtn");
+const chatMessages = document.getElementById("chatMessages");
+const startChatBtn = document.getElementById("startChatBtn");
+const newChatBtn = document.getElementById("newChatBtn");
+const sidebarNewChatBtn = document.getElementById("sidebarNewChatBtn");
+const welcomeScreen = document.getElementById("welcomeScreen");
+
+const API_KEY = "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";
+
+let isTyping = false;
+let conversationHistory = [];
+
+// Inicialización mejorada
+function init() {
+    // Configurar event listeners
+    messageInput.addEventListener("input", handleInputChange);
+    messageInput.addEventListener("keydown", handleKeyDown);
+    sendBtn.addEventListener("click", sendMessage);
+    startChatBtn.addEventListener("click", clearChat);
+    newChatBtn.addEventListener("click", clearChat);
+    sidebarNewChatBtn.addEventListener("click", clearChat);
+    
+    // Establecer estado inicial
+    toggleSendButton();
+    messageInput.focus();
+}
+
+// Manejar cambios en el input
+function handleInputChange() {
+    toggleSendButton();
+    
+    // Autoajustar altura del textarea
+    if (messageInput.scrollHeight > messageInput.clientHeight) {
+        messageInput.style.height = "auto";
+        messageInput.style.height = messageInput.scrollHeight + "px";
+    }
+}
+
+// Manejar teclas para permitir saltos de línea
+function handleKeyDown(e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        if (!sendBtn.disabled) {
+            sendMessage();
+        }
+    }
+}
+
+// Limpiar chat
+function clearChat() {
+    chatMessages.innerHTML = "";
+    conversationHistory = [];
+    welcomeScreen.style.display = "none";
+    messageInput.value = "";
+    toggleSendButton();
+    messageInput.focus();
+    messageInput.style.height = "auto"; // Resetear altura
+}
+
+// Enviar mensaje
+async function sendMessage() {
+    const message = messageInput.value.trim();
+    if (!message || isTyping) return;
+
+    // Determinar idioma del mensaje (inglés o español)
+    const isEnglish = /[a-zA-Z]/.test(message) && !/[áéíóúñÁÉÍÓÚÑ]/.test(message);
+    const userLanguage = isEnglish ? "english" : "spanish";
+    
+    appendMessage("Tú", message, "user-message", false);
+    conversationHistory.push({ role: "user", content: message });
+    
+    messageInput.value = "";
+    messageInput.style.height = "auto"; // Resetear altura
+    toggleSendButton();
+    
+    showTyping();
+    await getJarvisResponse(userLanguage);
+    hideTyping();
+}
+
+// Mostrar mensaje en el chat
+function appendMessage(sender, text, className, allowCopy = true) {
+    const msg = document.createElement("div");
+    msg.className = `message ${className}`;
+    
+    const content = document.createElement("div");
+    content.innerHTML = formatContent(text);
+
+    if (allowCopy) {
+        const copyBtn = document.createElement("button");
+        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+        copyBtn.className = "btn btn-outline copy-btn";
+        copyBtn.onclick = () => {
+            navigator.clipboard.writeText(text);
+            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+            setTimeout(() => {
+                copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+            }, 2000);
+        };
+        content.appendChild(copyBtn);
+    }
+
+    const time = document.createElement("div");
+    time.className = "message-time";
+    time.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    msg.appendChild(content);
+    msg.appendChild(time);
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Formatear contenido (markdown básico)
+function formatContent(text) {
+    // Manejar bloques de código
+    const withCodeBlocks = text.replace(/```(\w*)\n([\s\S]*?)```/g, 
+        '<pre><code class="$1">$2</code></pre>');
+    
+    return withCodeBlocks
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>');
+}
+
+// Mostrar indicador de "escribiendo"
+function showTyping() {
+    isTyping = true;
+    const typing = document.createElement("div");
+    typing.className = "typing-indicator";
+    typing.id = "typingIndicator";
+    
+    for (let i = 0; i < 3; i++) {
+        const dot = document.createElement("div");
+        dot.className = "typing-dot";
+        typing.appendChild(dot);
+    }
+    
+    chatMessages.appendChild(typing);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Ocultar indicador de "escribiendo"
+function hideTyping() {
+    isTyping = false;
+    const typing = document.getElementById("typingIndicator");
+    if (typing) typing.remove();
+}
+
+// Habilitar/deshabilitar botón de enviar
+function toggleSendButton() {
+    sendBtn.disabled = messageInput.value.trim() === "";
+    
+    // Feedback visual
+    if (sendBtn.disabled) {
+        sendBtn.style.opacity = "0.7";
+        sendBtn.style.cursor = "not-allowed";
+    } else {
+        sendBtn.style.opacity = "1";
+        sendBtn.style.cursor = "pointer";
+    }
+}
+
+// Obtener respuesta de la IA
+async function getJarvisResponse(userLanguage) {
+    try {
+        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${API_KEY}`,
+                "Content-Type": "application/json",
+                "HTTP-Referer": "https://twentyfox.lat",
+                "X-Title": "RataLife Chat"
+            },
+            body: JSON.stringify({
+                model: "mistralai/mistral-7b-instruct",
+                messages: [
+                    { 
+                        role: "system", 
+                        content: `Eres RataLife. Un asistente amigable, sabio y útil además de poetico en ocasiones. 
+                                  Responde en ${userLanguage === "english" ? "english" : "español"} según el idioma del usuario.`
+                    },
+                    ...conversationHistory
+                ]
+            })
+        });
+
+        const data = await response.json();
+        const aiText = data.choices?.[0]?.message?.content || 
+                      (userLanguage === "english" ? "Sorry, something went wrong." : "Lo siento, algo salió mal.");
+        
+        appendMessage("RataLife", aiText, "ai-message", true);
+        conversationHistory.push({ role: "assistant", content: aiText });
+    } catch (err) {
+        console.error("Error:", err);
+        const errorMsg = conversationHistory[conversationHistory.length - 1]?.content?.includes("english") ?
+            "⚠️ Error connecting to the server. Please try again." :
+            "⚠️ Error al conectar con el servidor. Por favor, intenta nuevamente.";
+        
+        appendMessage("RataLife", errorMsg, "ai-message", true);
+    }
+}
+
+// Iniciar la aplicación cuando el DOM esté listo
+document.addEventListener("DOMContentLoaded", init);
